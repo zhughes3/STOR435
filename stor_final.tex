@@ -1,0 +1,545 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{cases}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+% To make this come out properly in landscape mode, do one of the following
+% 1.
+%  pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+
+% If you're reading this, be prepared for confusion.  Making this was
+% a learning experience for me, and it shows.  Much of the placement
+% was hacked in; if you make it better, let me know...
+
+
+% 2008-04
+% Changed page margin code to use the geometry package. Also added code for
+% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
+% for the suggestions.
+
+% 2006-08
+% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
+
+
+% To Do:
+% \listoffigures \listoftables
+% \setcounter{secnumdepth}{0}
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+     \Large{STOR 435} \\
+\end{center}
+
+\section{Distributions}
+\subsection{Probability Relationships}
+\begin{tabular}{@{}ll@{}}
+$A \subset B$    & If A occurs, so does B \\
+$A = B$ & iff $A \subset B$ and $B \subset A$ \\
+$A \cup B$ & A or B occurs, or both occur \\
+$A \cap B$ & both A and B occur \\
+$A \cup B = \emptyset$ & A and B are \verb!mutually exclusive! \\
+\end{tabular}
+
+\subsection{Addition Rule}
+\begin{tabular}{@{}ll@{}}
+P(A $\cup$ B) & = P(A) + P(B) - P(A $\cap$ B) \\
+P(A $\cup$ B) & = P(A) + P(B) iff $A \cap B = \emptyset$
+\end{tabular}
+
+\section{Conditional Probability and Independence}
+\subsection{Division Rule, or Conditional Probability}
+\[
+ P(A | B) = 
+  \begin{cases} 
+   \frac{P(A \cap B)}{P(B)} & \text{if } P(B) > 0 \\
+   0,       & \text{if } P(B) = 0
+  \end{cases}
+\]
+\subsection{Multiplication Rule}
+P(A $\cap$ B) = P(A) P(B$|$A)
+
+\subsection{Independence}
+Two events A and B are independent if any are satisfied:
+\begin{tabular}{@{}ll@{}}
+P(A $\cap$ B) & = P(A) P(B) \\
+P(A$|$B) & = P(A) \\
+P(B$|$A) & = P(B)
+\end{tabular}
+
+\subsection{Discrete RV Independence}
+Discrete RV's $X_{1}$, ..., $X_{n}$ are said to be independent iff $$P(X_{1} = x_{1}, ... , X_{n} = x_{n}) = \prod_{i=1}^{n} P(X_{i} = x_{i}), \forall \{ x_{1}, ..., x_{n} \}$$
+
+\subsection{Continuous RV Independence}
+Continous RV's $X_{1}$, ..., $X_{n}$ are said to be independent iff $$P(X_{1} \leq x_{1}, ..., X_{n} \leq x_{n}) = \prod_{i=1}^{n} P(X_{i} \leq x_{i}), \forall (x_{1}, ... , x_{n}) \in \mathbb{R}^{n}$$
+
+\section{Binomial RV and Distribution}
+\subsection{Bernoulli trials}
+X $\sim$ Bin(n, p) \newline
+Let X = total number of Heads among n tosses, then \newline
+\begin{tabular}{@{}ll@{}}
+P(X = k) & = $\binom {n} {k} p^k q^{n-k}$ \\
+\end{tabular}
+
+\section{Normal RV and Distribution}
+\subsection{Density}
+\begin{itemize}[noitemsep]
+  \item Continuous RV X
+  \item Density curve $f(x)$ for X that satisfies:
+  \begin{itemize}[noitemsep]
+    \item $f(x) \geq 0, \forall x \in \mathbb{R} $
+    \item $\int_{-\infty}^{\infty} f(x) dx = 1$
+    \item P(a $\leq$ X $\leq$ b) = $\int_{a}^{b}$ f(x) dx
+  \end{itemize}
+  \item cdf (cumulative distribution function)
+  \begin{itemize}[noitemsep]
+    \item $F(x) =  \int_{-\infty}^{x} f(u) du, x \in \mathbb{R} $
+  \end{itemize}
+  \item $\frac{dF(x)}{dx} = f(x), \forall$ x at which $\frac{dF(x)}{dx}$ exists
+\end{itemize}
+
+\subsection{Normal Distribution}
+\begin{itemize}[noitemsep]
+  \item X $\sim$ N($\mu$, $\sigma^2$)
+  \begin{itemize}[noitemsep]
+    \item $\mu$ ::= mean(location)
+    \item $\sigma^2$ ::= variance (scale)
+    \item $\sigma$ ::= std dev
+  \end{itemize}
+  \item density $f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{(2 \sigma^2)}}$
+\end{itemize}
+
+\subsection{Standard Normal Distribution}
+\begin{itemize}[noitemsep]
+  \item Z $\sim$ N(0, 1)
+  \item density $\phi$(z) = $\frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2}$
+  \item cdf $\Phi$(z) = $\int_{-\infty}^{z} \phi(u) du$
+  \item $\Phi$(a, b) = $\Phi$(b) - $\Phi$(a)
+  \item $\Phi$(-1, 1) $\approx$ 0.6826
+  \item $\Phi$(-2, 2) $\approx$ 0.9544
+  \item $\Phi$(-3, 3) $\approx$ 0.9975
+\end{itemize}
+
+\subsection{Standardization}
+\begin{itemize}[noitemsep]
+  \item X $\sim$ N($\mu$, $\sigma^2$) $\iff$ Z = $\frac{X-\mu}{\sigma} \sim$ N(0, 1)
+  \item If X $\sim$ N($\mu$, $\sigma^2$), then P(a $\leq$ X $\leq$ b) = $\Phi(\frac{b - \mu}{\sigma}) - \Phi(\frac{a - \mu}{\sigma})$
+\end{itemize}
+
+\section{Binomial Approximated by Normal or Poisson}
+\subsection{Normal Approx to Binomial}
+\begin{itemize}[noitemsep]
+  \item Let X $\sim$ Bin(n, p), Z $\sim$ N(0, 1). For a $\leq$ b and large n,
+  \item Applies to cumulative binomial probabilities
+\end{itemize}
+
+\begin{equation*} 
+\begin{split}
+P(a \leq X \leq b) & \approx P(\frac{a - \mu - 0.5}{\sigma} \leq Z \leq \frac{b - \mu + 0.5}{\sigma}) \\
+& = \Phi(\frac{b - \mu + 0.5}{\sigma}) - \Phi(\frac{a - \mu - 0.5}{\sigma})
+\end{split}
+\end{equation*}
+where $\mu$ = np, $\sigma$ = $\sqrt{npq}$
+
+\subsection{Poisson approximation}
+\begin{itemize}[noitemsep]
+  \item Conditions: Let X $\sim$ Bin(n,p) where n is large, and either p or q is small, so $\sqrt{npq} <$ 3
+  \item Applies to single-point binomial probabilities
+\end{itemize}
+\begin{tabular}{@{}ll@{}}
+P(X = k)    & $\approx$ $e^{-\mu}\frac{\mu^{k}}{k!}$, k=0, 1, 2... \\
+\end{tabular}
+
+\section{Discrete RV's}
+\subsection{Univariate models}
+\begin{itemize}[noitemsep]
+  \item range(or support) of RV X : set of all possible values for X
+  \item transformations : a new RV Y is defined via composition Y = g(X)
+\end{itemize}
+
+\subsection{Multivariate Models}
+\begin{itemize}[noitemsep]
+  \item independence : X and Y are independent iff P(X = x, Y = y) = P(X = x) P(Y = y), $\forall$ x, y
+\end{itemize}
+
+\section{Expectations}
+\begin{itemize}[noitemsep]
+  \item E(X)    = $\sum_{x}$ x P(X = x)
+  \item E(Y) = E[g(X)] = $\sum_{x}$ g(x) P(X = x)
+  \item For constant c, E(c) = c
+  \item For constant c and RV X, E(cX) = c E(X)
+  \item For RV's $X_{1}$, ..., $X_{n}$, E($X_{1}$ + ... + $X_{n}$) = E($X_{1}$) + ... + E($X_{n}$)
+  \item If RV's X and Y are independent, then E(XY) = E(X) E(Y)
+\end{itemize}
+\begin{tabular}{@{}ll@{}}
+X $\sim$ Uniform\{$x_{1}$, ..., $x_{K}$\} & E(X) = $\frac{x_{1} + ... + x_{K}}{K}$ \\
+X $\sim$ Poisson($\mu$) & E(X) = $\mu$ \\
+X $\sim$ Bin(n,p) & E(X) = np \\
+X $\sim$ Geom(p) & E(X) = 1/p
+\end{tabular}
+
+\subsection{Summaries of Distributions}
+\begin{itemize}[noitemsep]
+  \item Mean: E(X) = $\mu$
+  \item Covariance: Cov(X, Y) = E(XY) - E(X) E(Y)
+  \item Variance: Var(X) = Cov(X, X) = E($X^{2}$) - $\mu^{2}$ = $\sigma^{2}$
+  \item SD(X) = $\sqrt{Var(X)}$ = $\sigma$
+  \item Correlation: Corr(X,Y) = $\frac{Cov(X, Y)}{SD(X) SD(Y)} = \rho$
+  \item X and Y are said to be uncorrelated if Corr(X,Y) = 0
+  \item If X and Y are independent, then Corr(X,Y) = 0 and Corr(X,Y) = 0
+\end{itemize}
+
+\subsection{Tail-sum formulas}
+\[
+ E(X) = 
+  \begin{cases} 
+  \sum_{k=1}^{n} P(X \geq k), & \text{if range of X is \{0, 1, ..., n\}} \\
+  \sum_{k=1}^{\infty} P(X \geq k), & \text{if range of X is \{0, 1, ..., \}}
+  \end{cases}
+\]
+
+\section{SD and Normal Approx}
+\subsection{Variance and SD Properties}
+\begin{itemize}[noitemsep]
+  \item Var(X) $\geq$ 0 for any RV X
+  \item For constant c, Var(C) = 0
+  \item For constant c and RV X, Var(cX) = $c^{2}$ Var(X)
+  \item Var(X + Y) = Var(X) + Var(Y) + 2 Cov(X, Y), in general
+  \item Var(X + Y) = Var(X) + Var(Y) iff X and Y are uncorrelated
+  \item Let $X_{1}, ..., X_{n}$ be iid RV's with a common mean $\mu$ and variance $\sigma^{2}$, denote $\bar{X}$ = $\frac{1}{n}(X_{1} + ... + X_{n})$
+  \begin{itemize}[noitemsep]
+    \item E($\bar{X}$) = $\mu$
+    \item Var($\bar{X}$) = $\frac{\sigma^{2}}{n}$
+  \end{itemize}
+\end{itemize}
+\begin{tabular}{@{}ll@{}}
+X $\sim$ Uniform\{$x_{1}$, ..., $x_{K}$\} & Var(X) = $\frac{1}{K} \sum_{k=1}^{K} x_{k}^{2} - (\bar{x})^{2}$ \\
+X $\sim$ Poisson($\mu$) & Var(X) = $\mu$ \\
+X $\sim$ Bin(n,p) & Var(X) = npq \\
+\end{tabular}
+
+\subsection{Central Limit Theorem}
+Let $X_{1}, X_{2}$, ... be a sequence of iid RV's with (the same) mean $\mu$ and variance $\sigma^{2}$. Denote $S_{n} = X_{1} + ... + X_{n}$. For any a $\leq$ b, 
+$$\lim_{n\to\infty} P(a \leq \frac{S_{n} - n \mu}{\sqrt{n\sigma^{2}}} \leq b) = \Phi(b) - \Phi(a)$$
+Under assumptions for CLT, with large n and Z $\sim$ N(0, 1),
+$$P(a \leq S_{n} \leq b) \approx P(\frac{a - n \mu - \frac{\delta}{2}}{\sqrt{n\sigma^{2}}} \leq Z \leq \frac{b - n \mu + \frac{\delta}{2}}{\sqrt{n\sigma^{2}}})$$,
+where terms $\pm \frac{\delta}{2}$ are referred to as correction for continuity, where $\delta > 0$  is the largest number such that all possible values of $X_{1}$ are multiples of $\delta$ e.g. $\delta = 1$ when X $\sim$ Bin(n,p) or X $\sim$ Poisson($\mu$)
+
+\section{Geometric Distribution}
+\subsection{Basic example}
+Toss a coin(p) repeatedly and let X be total number of tosses needed to observe the first H, denoted by X $\sim$ Geom(p)
+\begin{tabular}{@{}ll@{}}
+P(X = k) & = $q^{k-1}p$ \\
+P(X $\geq$ k) & = $q^{k-1}$\\
+E(X) & = $\frac{1}{p}$\\ 
+Var(X) & = $\frac{q}{p^{2}}$
+\end{tabular}
+\subsection{Infinite Sum Rule}
+If a countable collection of events \{$A_{1}, A_{2}, ...$ \} partition A, then $$P(A) = \sum_{k=1}^{\infty} P(A_{k})$$
+
+\subsection{Negative Binomial Distribution}
+\subsection{Basic example}
+Toss a coin(p) repeatedly and let $T_{r}$ be the total number of tosses needed to observe the rth H, where r is a positive integer. Note the range of $T_{r}$ is \{r, r+1, ...\} \newline
+Let $X = T_{r} - r$ be the total number of T's before seeing the rth H. X $\sim$ NegBin(r,p), with $$P(X = k) = \binom{k + r - 1}{r - 1} q^{k}p^{r-1}p$$
+\begin{tabular}{@{}ll@{}}
+$E(T_{r})$ & = $\frac{r}{p}$ \\
+E(X) & = $\frac{rq}{p}$ \\
+Var($T_{r}$) & = $\frac{rq}{p^{2}}$ \\
+Var(X) & = $\frac{rq}{p^{2}}$
+\end{tabular}
+
+\section{Density and Expectation}
+\subsection{Plug-in formula for Expectation}
+Let X have a density \textit{f} and \textit{g} be a known function.
+$$E[g(X)] = \int_{-\infty}^{\infty} g(x) f(x) dx = \int_{\mathbb{R}} g(x) f(x) dx$$
+Special Cases:
+\begin{tabular}{@{}ll@{}}
+Mean: E(X) &= $\mu$ \\
+Variance: Var(X) &= $\sigma^{2}$ \\
+kth moments: E($X^{k}$) &= $\int_{\mathbb{R}} x^{k} f(x) dx$, where \textit{k} is a pos int
+\end{tabular}
+
+\subsection{Uniform Distributions}
+Suppose X $\sim$ Uniform[a,b] with density $f(x) = \frac{1}{b-a}, x \in [a, b]$.
+\begin{tabular}{@{}ll@{}}
+E(X) &= $\frac{a+b}{2}$ \\
+Var(X) &= $\frac{(b-a)^{2}}{12}$
+\end{tabular}
+
+\subsection{Cauchy Distribution}
+Suppose X $\sim$ Cauchy with density $f(x) = \frac{1}{\pi(1 + x^{2}}, x \in \mathbb{R}$ Then E(X) does not exist.
+
+\section{Exponential and Gamma Distributions}
+\subsection{Exponential Distribution}
+Let "lifetime" X $\sim$ Exp($\lambda$) with density $f(x) = \lambda e^{-\lambda x}, x \geq 0$, where $\lambda > 0$ is a constant parameter.
+\begin{itemize}[noitemsep]
+  \item Survival Function: P(X $>$ x) = 1 - F(X) = $e^{-\lambda x}, x \geq 0$ with cdf:
+  \item \[
+ F(x) = 
+  \begin{cases} 
+  1 - e^{-\lambda x} & \text{if } x \geq 0 \\
+  0 & \text{if } x < 0
+  \end{cases}
+\]
+\item $E(X) = \frac{1}{\lambda}$
+\item $Var(X) = \frac{1}{\lambda^{2}}$
+\item Memoryless Property: P(X $>$ x + t $|$ X $>$ x) = P(X $>$ t), $\forall$ x $\geq$ 0, t $\geq$ 0.
+\end{itemize}
+
+\subsection{Gamma Distribution}
+Let $X_{1}$, ..., $X_{n}$ be iid Exp($\lambda$), and $S_{n} = X_{1} + ... + X_{n}$. Then $S_{n} \sim$ Gamma(n, $\lambda$) has density:
+$$f_{S_{n}}(x) = \frac{e^{-\lambda x}\lambda^{n}x^{n-1}}{(n-1)!}, x \geq 0$$
+\begin{itemize}[noitemsep]
+  \item E($S_{n}$) = $\frac{n}{\lambda}$
+  \item Var($S_{n}$) = $\frac{n}{\lambda^{2}}$
+\end{itemize}
+
+\section{CDF}
+\subsection{Definition}
+$$F(x) = P(X \leq x), x \in \mathbb{R}$$
+If X has a discrete distribution, $$F(x) = \sum_{u: u \leq x} P(X = u) \iff P(X = x) = F(x) - F(x-)$$ where $$F(x-) = \lim_{u \, \to \, x^-}F(u)$$
+If X has a density, then F is a continuous curve with, $$F(x) =  \int_{-\infty}^{x} f(u) du \iff f(x) = \frac{dF(x)}{dx}$$
+Also, there are RV's whose distributions are neither continous nor continuous.
+\subsection{cdf Properties}
+\begin{itemize}[noitemsep]
+  \item Every cdf F is a non-decreasing and right-continous function, and satisfies: $$ 0 \leq F(x) \leq 1; \lim_{x \to -\infty} F(x) = 0, \lim_{x \to \infty} F(x) = 1$$
+  \item Interval Probabilities via cdf:
+  \begin{itemize}[noitemsep]
+    \item $P(a < X < b) = F(b-) - F(a)$
+    \item $P(a \leq X < b) = F(b-) - F(a-)$
+    \item $P(a < X \leq b) = F(b) - F(a)$
+    \item $P(a \leq X < \leq) = F(b) - F(a-)$
+  \end{itemize}
+\end{itemize}
+
+\section{Multivariate Continuous Distributions}
+\subsection{Basics}
+\begin{itemize}[noitemsep]
+  \item For random vector ($X_{1}$, ... , $X_{n}$):
+  \begin{itemize}[noitemsep]
+    \item joint cdf: F($x_{1}$, ... , $x_{n}$) = P($X_{1} \leq x_{1}$, ..., $X_{n} \leq x_{n}$)
+    \item joint density: f($x_{1}$, ..., $x_{n}$) that satisfies:
+    \begin{itemize}[noitemsep]
+      \item f($x_{1}$, ... , $x_{n}$) $\geq 0, \forall$ ($x_{1}$, ..., $x_{n}$) $\in \mathbb{R}^{n}$;
+      \item $\int_{\mathbb{R}^{n}} f(x_{1}, ... , x_{n}) dx_{1} ... dx_{n} = 1$
+    \end{itemize}
+  \end{itemize}
+  \item Connections: for ($x_{1}$, ... , $x_{n}$) $\in \mathbb{R}^{n}$,
+  \begin{itemize}[noitemsep]
+    \item F($x_{1}$, ... , $x_{n}$) = $\int_{-\infty}^{x_{1}}$ ... $\int_{-\infty}^{x_{n}}$ $f(u_{1}, ... , u_{n}) du_{1} ... du_{n}$
+    \item f($x_{1}$, ... , $x_{n}$) = $\frac{\partial^{n}F(x_{1}, ..., x_{n})}{\partial x_{1} ... \partial x_{n}}$
+  \end{itemize}
+  \item infinitesimal probability
+  \begin{itemize}[noitemsep]
+    \item P($X_{1} \in dx_{1}, ..., X_{n} \in dx_{n}$) $\approx f(x_{1}, ..., x_{n}) dx_{1} ... dx_{n}$
+  \end{itemize}
+  \item domain probability: for a domain D $\subset \mathbb{R}^{n}$,
+  \begin{itemize}[noitemsep]
+    \item P($(X_{1}, ..., X_{n}) \in D$) = $\int_{D} f(x_{1}, ..., x_{n}) dx_{1} ... dx_{n}$
+  \end{itemize}
+  \item 1d-marginals: for i = 1, ..., n,
+  \begin{itemize}[noitemsep]
+    \item $f_{X_{i}}(x_{i}) = \int_{\mathbb{R}^{n-1}} f(u_{1}, ..., u_{i-1}, x_{i}, u_{i + 1}, ..., u_{n}) du_{1} ... du_{i-1}du_{i+1}...du_{n}$
+    \item $F_{X_{i}}(x_{i}) = \lim_{u_{j} \to \infty, j \ne i} F(u_{1}, ..., u_{i-1}, x_{i}, u_{i + 1}, ..., u_{n})$
+  \end{itemize}
+  \item independence
+  \newline
+    $X_{1}, ..., X_{n}$ are independent 
+    $$\iff f(x_{1}, ..., x_{n}) = f_{X_{1}}(x_{1}) ... f_{X_{n}}(x_{n}), \forall (x_{1}, ..., x_{n}) \in \mathbb{R}^{n} $$
+    $$\iff F(x_{1}, ..., x_{n}) = F_{X_{1}}(x_{1}) ... F_{X_{n}}(x_{n}), \forall (x_{1}, ..., x_{n}) \in \mathbb{R}^{n} $$ 
+    
+  \item expectation : for a known function g
+  $$ E[g(X_{1}, ..., X_{n})] = \int_{\mathbb{R}^n} g(x_{1}, ..., x_{n})f(x_{1}, ..., x_{n})dx_{1} ... dx_{n}$$
+\end{itemize}
+
+\section{MultiVar Uniform Dist}
+A random vector ($X_{1}, ..., X_{n}$) is said to be uniformly distributed over a bounded domain $D \subset \mathbb{R}^{n}$ if:
+$$P((X_{1}, ..., X_{n}) \in A) = \frac{volume(A)}{volume(b)}, \forall A \subset D$$
+\subsection{Rectangular Uniform Domains}
+For a rectangular domain D = [a,b] $\times$ [c,d], (X,Y) is uniformly distributed over D $\iff$ X $\sim$ Uniform[a,b] and Y $\sim$ Uniform[c,d], and X and Y are independent.
+
+\section{Independent Normal RV's}
+\begin{itemize}[noitemsep]
+  \item If X = $\sigma Z + \mu$ with parameters $\mu \in \mathbb{R}$ and $\sigma > 0$, then $Z \sim N(0,1) \iff X \sim N(\mu, \sigma^{2})$
+  \item Let $X_{1}, ..., X_{n}$ be independent with $X_{i} \sim N(\mu_{i}, \sigma_{i}^{2}), i = 1, ..., n$. Then $S_{n} \triangleq X_{1} + \cdots + X_{n} \sim N(\mu_{1} + \cdots + \mu_{n}, \sigma_{1}^{2} + \cdots + \sigma_{n}^{2})$
+\end{itemize}
+
+\section{Covariance and Correlation}
+\subsection{Def's and Properties}
+\begin{itemize}[noitemsep]
+  \item $Cov(X,Y) = E[(X-\mu_{X})(Y-\mu_{y})] = E(XY) - E(X)E(Y)$
+  \item $Corr(X,Y) = \frac{Cov(X,Y)}{SD(X)SD(Y)} = \rho$
+  \item Properties
+  \begin{itemize}[noitemsep]
+    \item $Cov(X,X) = Var(X)$ and $Cov(X,Y) = Cov(Y,X)$
+    \item $Cov(I_{A}, I_{B}) = P(A \cap B) - P(A) P(B)$
+    \item $Var(X + Y) = Var(X) + Var(Y) + 2Cov(X, Y)$
+    \item X and Y are independent $\Rightarrow$ Corr(X, Y) = 0; but not vice versa
+    \item (bilinearity) for constants $\{a_{i}\}, \{b_{j}\}$ and RV's $\{X_{i}\}, \{Y_{j}\}$,
+    \begin{itemize}[noitemsep]
+      \item $Cov(\sum_{i=1}^{m} a_{i}X_{i}, \sum_{j=1}^{n} b_{j}Y_{j}) = \sum_{i=1}^{m} \sum_{j=1}^{n} a_{i}b_{j} Cov(X_{i}, Y_{j})$
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\subsection{Multinomial Distribution}
+Let $X_{1}, ..., X_{n}$ be iid with $P(X_{1} = m) = p_{m}, m = 1, ..., M$. Denote the frequency of category m in n trials
+$$ N_{m} = I_{\{X_{1}=m\}} + ... + I_{\{X_{n}=m\}}$$
+Then 
+$$P(N_{1} = n_{1}, ..., N_{M} = n_{M}) = \frac{n!}{n_{1}! ... n_{M}!} p_{1}^{n_{1}} ... p_{M}^{n_{M}}$$
+where $n = n_{1} + ... + n_{M}$
+\begin{itemize}[noitemsep]
+\item $N_{1} + \cdots + N_{M} = n$ and $p_{1} + \cdots + p_{M} = 1$ Hence, free params are \textit{n} and \textit{$p_{m}$}, $m = 1, \cdots, M - 1$
+\item Bin(n, p) is a special case of multinomial distribution with $M = 2, p_{1} = p, and p_{2} = q = 1 - p$
+\item $N_{m} \sim Bin(n, p_{m}); N_{k} + N_{m} \sim Bin(n, p_{k} + p_{m}) and (N_{k}, N_{m}, n - N_{k} - N_{m}) $ follows a multinomial distribution with parameters $\{n; p_{k}, p_{m}, 1 - p_{k} - p_{m}\}$
+\end{itemize}
+
+\section{Hypergeometric Distribution}
+A box contains B black balls and R red balls. Sample \textit{n} balls without replacement. Write $N + B + R$ Let X denote the number of black balls in the sample, which follows a hypergeometric distribution denoted by $X \sim HG(n; N, B)$ with
+$$P(X = b) = \frac{\binom{B}{b} \binom{R}{r}}{\binom{N}{n}}, where r = n - b$$
+In calculating E(X) and Var(X), we write $X = I_{A_{i}} + \cdots + I_{A_{n}}$ where $A_{i} =$ \{a black ball appears in the ith draw\} 
+$E(X) = \sum_{i=1}^{n} P(A_{i}) = np$ where $p = \frac{B}{N}, q = \frac{R}{N}$
+$$Var(X) = \frac{N-n}{N-1} npq$$
+
+\section{Conditional Dist and Expectation: Discrete Case}
+\subsection{Basics}
+Denote the sets of atoms for discrete RV's X and Y by $D_{X} $ and $D_{Y}$ respectively. Given $x \in D_{X}$, the collection $\{P(Y = y | X = x), y \in D_{Y}\}$ is called the conditional distribution of Y given $X = x$
+\subsection{Definition}
+Assume (X, Y) follows a discrete joint distribution. Then for $x \in D_{X}$,
+$$E(Y|X = x) = \sum_{y} y P(Y = y| X= x)$$
+For a known function $g$, we have the plug-in formula:
+$$E[g(X,Y) | X = x] = \sum_{y} g(x,y) P(Y=y | X = x).$$
+\subsection{Averaging}
+$$E(Y) = E[E(Y|X)] = \sum_{x} E(Y|X = x) P(X=x)$$
+
+\section{Conditional Density and Expectation}
+Suppose (X,Y) has a join density $f_{(X,Y)}(x,y)$. Given X = x, how should we compute the conditional probability $P((X,Y) \in A | X = x)$?This cannot be solved by the usual conditional probability formula because $P(X = x) = 0, \forall x$. So we define a conditional density by 
+$$f_{Y}(y|x) = \frac{f_{(X,Y)}(x,y)}{f_{X}(x)}$$
+then $$P(A|X = x) = \int_{A} f_{Y}(y|x) dy$$
+
+\section{Examples}
+\subsection{True/False}
+\begin{itemize}[noitemsep]
+  \item If $X \sim Exp(\frac{2}{\lambda})$, then $Var(-2X) = \lambda^{2}$
+  $$Var(-2X) = (-2)^{2} Var(X) = 4 (\frac{1}{(\frac{2}{\lambda})^{2}}) = \frac{4\lambda^{2}}{4} = \lambda^{2}$$
+  \item If $X \sim Uniform[-1, 1]$, then $Var(-3X - 1) = \frac{18}{12}$
+  $$Var(-3X - 1) = (-3)^{2} Var(X) + Var(1) = 9 \frac{ (1 - (-1))^{2}}{12} = \frac{36}{12} = 3$$
+  \item If $X \sim Poisson(2)$ and $Y \sim Poisson(1)$, then $X + Y \sim Poisson(3) \cdots$ 
+  False, X and Y need to be independent for $X + Y \sim Poisson(3)$
+  \item If X and Y are iid RV's with mean 0, then E(XY) = 0 $\cdots$ True
+  \item A box contains 3 red balls and 2 white balls. Sample 2 balls \textbf{without replacement} from the box. Then P(1st ball is red and 2nd ball is white) = P(1st ball is white and 2 ball is red) $\cdots$ True
+  \item If $X \sim N(0, \sigma^{2})$, then $E(X^{3}) = 0 \cdots $ True
+  \item $I_{A \cap B} = I_{A}I_{B}$ always holds. $\cdots $ True
+  \item A box contains 4 red balls (R), 3 white balls (W), and 2 black balls (B). Sample 2 balls from the box \textbf{with replacement}. Let X and Y denote the numbers of R's and W's in the sample respectively. Then $Cov(X,Y) = \frac{-8}{27} \cdots $ True
+  \item Let X + 2Y = 5. Then $Corr(X,Y) = -1/2 \cdots$ From properties of covariance, if X = -2Y + 5, then Corr(X,Y) = -1
+\end{itemize}
+
+\subsection{Poisson RV's}
+Suppose X and Y are iid Poisson(1) random variables.
+\begin{itemize}[noitemsep]
+  \item For a constant c, calculate mean and variance of $X - cY$
+  $$E(X - cY) = E(X) -cE(Y) = 1 - c$$
+  $$Var(X - cY) = Var(X) + c^{2}Var(Y) = 1 + c^{2}$$
+  \item Find all values of c such that $X - cY$ follows a Poisson distribution $\cdots$ Set $1 - c = 1 + c^{2}$
+  $$c^{2} + c = c(c + 1) = 0; c=0 or c = -1$$
+\end{itemize}
+
+\subsection{Playoff}
+Suppose team A and team B meet in playoffs and play against each other in a 7-game series, whichever team withs 4 games 1st moves to next round. Assume outcomes in each game are independent. Winning probability for A is $\frac{3}{5}$, for B is $\frac{2}{5}$
+\begin{itemize}[noitemsep]
+  \item Probability that A sweeps B in 4 games is equal to: $\cdots (\frac{3}{5})^{4}$
+  \item Let N be total number of games needed to finish the series and $ I_{A} $ be the indicator for A to win the series. Are N and $I_{A} $ independent? $ \cdots $ For the two to be independent, $P(N = 4 | I_{A} = 1) = P(N = 4 | I_{A} = 0)$ which only holds when A and B have same probability to win each game. Therefore, not independent.
+\end{itemize}
+
+\subsection{High School}
+A high school has 1000 students: the numbers of students from 9th to 12th grade are 400, 300, 200, and 100 respectively. Randomly sample 20 students with replacement. Let $N_{k}$ denote the number of kth graders in the sample, where k=9, 10, 11, 12. 
+\begin{itemize}[noitemsep]
+  \item The probability distribution of $N_{11}$ is $ \cdots $ Bin(20, 200/1000) = Bin(20, 0.2)
+  \item The probability distribution of $N_{9} + N_{10}$ is $\cdots$ Bin(20, 700/1000) = Bin(20, 0.7)
+  \item Correlation between $N_{9}$ and $N_{12}$ is $\cdots \frac{-2}{3\sqrt{6}}$
+  \item Covariance between $N_{9} + N_{10}$ and $N_{11} + N_{12} \cdots $ If we let $X =N_{9} + N_{10}$ and $Y = N_{11} + N_{12}$. Then, because X + Y = 20, the Corr(X,Y) = -1 and Var(X) = Var(Y). Therefore
+  $$Cov(X,Y) = -\sqrt{VarX * VarY} = -Var(X) = -20 (\frac{7}{10}) (\frac{3}{10})$$
+\end{itemize}
+
+\subsection{Poisson Process}
+Suppose number of phone calls per hour arriving at an answering service follows a Poisson process with the rate $\lambda = 3$ or (interarrival times are iid exponential RV's with mean 20 minutes)
+\begin{itemize}[noitemsep]
+  \item Given that 6 calls arrive in the first two hours, what is the conditional probability that 4 calls arrive in the second hour? $\cdots \binom{6}{2} \frac{1}{2^{6}}$
+  \item Let $T(i,j)$ denote the time interval from the ith arrival to the jth arrival. Then the correlation between T(1,3) and T(2,4) is $\cdots \frac{1}{2}$
+  \item Then the correlation beteen T(0,2) and T(0,4) is $\cdots Cov(T(0,2), T(0,4)) = Var[T(0,2)] = \frac{2}{\lambda^{2}} \cdots Corr(T(0,2), T(0,4)) = \frac{\frac{2}{\lambda^{2}}}{\sqrt{\frac{2}{\lambda^{2}}\frac{4}{\lambda^{2}}}} = \frac{1}{\sqrt{2}} = \sqrt{\frac{1}{2}}$
+\end{itemize}
+
+
+\end{multicols}
+\end{document}
